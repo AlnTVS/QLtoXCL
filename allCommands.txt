@@ -1,0 +1,11 @@
+-h
+-timeInfluxDb "dateFrom dateTo"
+-сonfigSql pathToConfigSQL
+-сonfig pathToConfig
+-resultXlsx pathToOutputXLSX
+-resultCsv pathToOutpurCSV
+-template pathToTemplateXLSX
+-sql "SQL SELECT COMMAND"
+-generateTemplate 
+-generateSqlConfig 
+-generateConfig 
