@@ -52,24 +52,24 @@ public class MainApp {
                 "WHERE transaction =~/uc0[1-2]_pacing/ " +
                 "AND time >= 1604414385218ms and time <= 1604418305672ms";
 
-        Map<String, List<String>> valuesMap = InfluxDBWorker.getMapQueryResultWithGroupBy(str);
-        Map<String, List<String>> valuesMap2 = InfluxDBWorker.getMapQueryResultWithGroupBy(str2);
-        Map<String, List<String>> valuesMap3 = InfluxDBWorker.getMapQueryKeyResult(str3);
-        List<Map> mapList = new ArrayList<>();
-        mapList.add(valuesMap);
-        mapList.add(valuesMap2);
-        mapList.add(valuesMap3);
-
-        Context context = new Context();
-        for (Map map : mapList) {
-            JXLCWorker.putMapToContext(map, context);
-        }
-        String tempPath = "templates\\transaction_template.xls";
-        String outPaht = "templates\\target\\transaction_output.xls";
-        JXLCWorker.createXLC(tempPath,outPaht,context);
-    }
-
-    private static String queryTransactionName(String seriesName) {
-        return "SELECT transaction FROM " + seriesName + " WHERE transaction =~/uc0[1-2]_pacing/;";
+//        Map<String, List<String>> valuesMap = InfluxDBWorker.getMapQueryResultWithGroupBy(str);
+//        Map<String, List<String>> valuesMap2 = InfluxDBWorker.getMapQueryResultWithGroupBy(str2);
+//        Map<String, List<String>> valuesMap3 = InfluxDBWorker.getMapQueryKeyResult(str3);
+//        List<Map> mapList = new ArrayList<>();
+//        mapList.add(valuesMap);
+//        mapList.add(valuesMap2);
+//        mapList.add(valuesMap3);
+//
+//        Context context = new Context();
+//        for (Map map : mapList) {
+//            JXLCWorker.putMapToContext(map, context);
+//        }
+//        String tempPath = "templates\\transaction_template.xls";
+//        String outPaht = "templates\\target\\transaction_output.xls";
+//        JXLCWorker.createXLC(tempPath,outPaht,context);
+//    }
+//
+//    private static String queryTransactionName(String seriesName) {
+//        return "SELECT transaction FROM " + seriesName + " WHERE transaction =~/uc0[1-2]_pacing/;";
     }
 }
