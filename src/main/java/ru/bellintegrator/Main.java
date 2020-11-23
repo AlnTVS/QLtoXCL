@@ -23,7 +23,7 @@ public class Main {
         if (!CommonCliWorker.isHelp()) {
             Config config = ConfigController.getConfig();
             // не десериализуется
-            ConfigSQL configSQL = ConfigWorker.readConfig(config.getParameter(Config.Parameters.configSQL), ConfigSQL.class);
+            ConfigSQL configSQL = JSONWorker.readConfig(config.getParameter(Config.Parameters.configSQL), ConfigSQL.class);
             List<Map<String,List<String>>> listMap = new ArrayList<>();
             dbSelector(config,listMap,configSQL);
             writerTypeSelector(config,listMap);

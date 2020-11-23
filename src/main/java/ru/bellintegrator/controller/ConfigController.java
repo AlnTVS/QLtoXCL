@@ -1,7 +1,7 @@
 package ru.bellintegrator.controller;
 
 import ru.bellintegrator.model.Config;
-import ru.bellintegrator.worker.ConfigWorker;
+import ru.bellintegrator.worker.XMLWorker;
 
 public class ConfigController {
     private static String path = "Config.config";
@@ -15,11 +15,11 @@ public class ConfigController {
     }
 
     private static void initConfig() {
-        config = ConfigWorker.readConfig(path,Config.class);
+        config = XMLWorker.readConfig(path,Config.class);
     }
 
     public static void setConfig(String strPath) {
-        config = ConfigWorker.readConfig(strPath,Config.class);
+        config = XMLWorker.readConfig(strPath,Config.class);
     }
 
     public static void setConfigSQL(String strPath) {

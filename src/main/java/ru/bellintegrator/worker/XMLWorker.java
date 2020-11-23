@@ -11,14 +11,13 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ConfigWorker {
+public class XMLWorker {
 
     public static <T> T readConfig(String pathStr, Class<T> objClass) {
         T obj = null;
         Path path = Paths.get(pathStr);
         if(!FileWorker.checkIsExistFile(path)&&!FileWorker.checkFileExtension(path,"config")) return obj;
         ObjectMapper xmlMapper = new XmlMapper();
-        xmlMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
         try {
             obj = xmlMapper.readValue(path.toFile(), objClass);
         } catch (IOException e) {
