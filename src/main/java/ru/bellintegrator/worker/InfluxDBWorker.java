@@ -4,6 +4,7 @@ import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.Query;
 import org.influxdb.dto.QueryResult;
+import ru.bellintegrator.model.ConfigSQL;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -39,7 +40,7 @@ public class InfluxDBWorker {
         }
     }
 
-    public static Map<String, List<String>> getMapQueryResultWithGroupBy(String query) {
+    private static Map<String, List<String>> getMapQueryResultWithGroupBy(String query) {
         Map<String, List<String>> valuesMap = new LinkedHashMap<>();
         QueryResult queryResult = query(query);
         queryResult.getResults().get(0).getSeries().get(0).getColumns().forEach(c -> valuesMap.put(c, new ArrayList<>()));
@@ -56,11 +57,26 @@ public class InfluxDBWorker {
         return valuesMap;
     }
 
-    public static Map<String, List<String>> getMapQueryKeyResult(String query) {
+    private static Map<String, List<String>> getMapQueryKeyResult(String query) {
         Map<String, List<String>> valuesMap = new LinkedHashMap<>();
         QueryResult queryResult = query(query);
         valuesMap.put("Name",new ArrayList<>());
         queryResult.getResults().get(0).getSeries().get(0).getValues().forEach(v->valuesMap.get("Name").add(v.get(1).toString()));
         return valuesMap;
+    }
+
+    public static void getListMapsFromInfluxDB(List<Map<String,List<String>>> listMap, ConfigSQL configSQL) {
+        for (List<String> list : configSQL.getSqlList()) {
+            list.stream()
+                    .filter(s -> s.startsWith(ConfigSQL.typeString.sqlText.toString()))
+                    .forEach(s -> listMap
+                            .add(InfluxDBWorker.getMapQueryResultWithGroupBy(s
+                                    .substring((ConfigSQL.typeString.sqlText.toString()).length() + 1))));
+            list.stream()
+                    .filter(s -> s.startsWith(ConfigSQL.typeString.tagName.toString()))
+                    .forEach(s -> listMap
+                            .add(InfluxDBWorker.getMapQueryKeyResult(s
+                                    .substring((ConfigSQL.typeString.tagName.toString()).length() + 1))));
+        }
     }
 }

@@ -2,16 +2,21 @@ package ru.bellintegrator.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor
+@Setter
 public class ConfigSQL {
     private List<List<String>> sqlList = new ArrayList<>();
     public enum typeString {sqlText, tagName}
 
+    public List<List<String>> getSqlList() {
+        return sqlList;
+    }
 //    public ConfigSQL(){
 //        sqlList.add(new ArrayList<>());
 //        sqlList.add(new ArrayList<>());
