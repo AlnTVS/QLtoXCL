@@ -18,29 +18,20 @@ import java.util.Map;
 
 public class ApachePOISimpleWorker {
     public static void createXlsByMap(List<Map<String, List<String>>> listMap) {
-//        String path = "out/" + new Date().toString() + ".xls";
+//        String path = "out/" + new Date().toString() + ".xlsx";
 //        createXlsByMap(map, path);
     }
 
     public static void createXlsByMap(List<Map<String, List<String>>> listMap, String path) {
-        short rownum = 0;
         short cellnum = 0;
         try (FileOutputStream out = new FileOutputStream(path)) {
-            Workbook wb = new HSSFWorkbook();
+            Workbook wb = new XSSFWorkbook();
             Sheet s = wb.createSheet();
             Row r = null;
             Cell c = null;
             int listSize = listMap.get(0).entrySet().iterator().next().getValue().size();
             for(int i = 0; i <= listSize; i++) s.createRow(i);
             for (Map<String,List<String>> map:listMap) {
-//                for (Map.Entry set:map.entrySet()) {
-//                    r = s.createRow(rownum++);
-//                    r.createCell(cellnum++).setCellValue(set.getKey().toString());
-//                    for (String value : (List<String>) set.getValue()) {
-//                        r.createCell(cellnum++).setCellValue(value);
-//                    }
-//                    cellnum = 0;
-//                }
                 for (Map.Entry set:map.entrySet()) {
                     s.getRow(0).createCell(cellnum).setCellValue(set.getKey().toString());
                     List<String> list = (List<String>)set.getValue();
